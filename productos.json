@@ -1,0 +1,94 @@
+[
+    {
+        "id": 26,
+        "nombre": "Audífonos Bluetooth Tws Wave Flex JBL",
+        "descripcion": "Auricular: Auriculares in ear\r\nFrecuencia: 20 Hz ¿ 20 kHz\r\nInformacion adicional: 8 horas de autonomia en reproduccionresistente al agua y al polvo\r\nLargo del cable: No aplica\r\nSalida auxiliar de 3 5 mm: No\r\nAislador de sonido: No\r\nAudio hq: No\r\nCompatibilidad: Universal\r\nCondicion del producto: Nuevo\r\nConectividad: Bluetooth\r\nConexion bluetooth: Sí\r\nDuracion en condiciones prev de uso: 5 años\r\nEntradas auxiliares de 3 5 mm: No incluye\r\nGarantia del proveedor: 1 año",
+        "especificaciones": {
+            "Aislador de sonido": "No",
+            "Modelo": "WAVE FLEX BLANC",
+            "Cuenta con bluetooth": "Si",
+            "País de origen": "China"
+        },
+        "precio": "49990.00",
+        "cantidadEnStock": 25,
+        "categoriaId": 4,
+        "imagenes": [
+            "uploads\\1738178016111-996535907.jpg",
+            "uploads\\1738178016115-153208312.jpg",
+            "uploads\\1738178016117-677378948.jpg"
+        ],
+        "featured": false,
+        "Category": {
+            "nombre": "Tecnología"
+        }
+    },
+    {
+        "id": 27,
+        "nombre": "Jeans Skinny Fit Hombre",
+        "descripcion": "Cuidados de la prenda: Lavar a máquina a máximo 30°, secar al aire libre, planchar a t° baja, no clorar\r\nMedidas del modelo: Pecho 91 cm,Cadera 93 cm, mide 1.85 mt y Usa Talla M / 42\r\nNumero del fabricante o importador: N/A\r\nPinzas: No\r\nComposicion: 75% Algodón, 23% Poliéster, 2% Elastano\r\nCondicion del producto: Nuevo\r\nEstilo vestuario: Casual\r\nFit: Skinny\r\nGenero: Hombre\r\nHecho en: China\r\nMaterial vestuario: Algodón\r\nPais: China\r\nTemporada: Primavera-Verano\r\nTipo de pantalon: 5 Bolsillos\r\nTipo pantalones hombre: Jeans",
+        "especificaciones": {
+            "Género": "Hombre",
+            "Descripción del Producto": "Jeans de tiro regular y bota slim, tiene 5 bolsillos y efecto rasgado en pierna",
+            "Modelo": "JDSK SCRATCH",
+            "Estilo de vestuario": "Casual"
+        },
+        "precio": "24990.00",
+        "cantidadEnStock": 30,
+        "categoriaId": 1,
+        "imagenes": [
+            "uploads\\1738178372646-666697517.jpg",
+            "uploads\\1738178372647-448008234.jpg",
+            "uploads\\1738178372650-491287786.jpg"
+        ],
+        "featured": false,
+        "Category": {
+            "nombre": "Ropa"
+        }
+    },
+    {
+        "id": 28,
+        "nombre": "Cama Europea Tempo Plus King",
+        "descripcion": "Te encantará dormir y despertar en la cama Tempo Plus tamaño king. Y es que su colchón cuenta con un topper doble, presente tanto en su cara superior como inferior, que elevará tu descanso a otro nivel. Además, su base y sus patas de madera proporcionan gran soporte y resistencia.\r\n\r\nCuenta con resortes Pocket enfundados individualmente, los que brindan independencia de movimientos y una perfecta adaptación al contorno y peso de tu cuerpo. Su cubierta de tela punto destaca por su elasticidad y suavidad.\r\n\r\nAl ser un colchón two sides, sus atributos están distribuidos por ambos lados del colchón, por lo que al darlo vuelta podrás disfrutar siempre de sus propiedades. Te aconsejamos voltearlo mensualmente.",
+        "especificaciones": {
+            "Tamaño de la cama": "King",
+            "Largo": "200 cm",
+            "Ancho": "180 cm",
+            "Modelo": "TEMPO PLUS"
+        },
+        "precio": "349990.00",
+        "cantidadEnStock": 10,
+        "categoriaId": 2,
+        "imagenes": [
+            "uploads\\1738178648720-231023217.jpg",
+            "uploads\\1738178648721-426443836.jpg",
+            "uploads\\1738178648722-310208690.jpg"
+        ],
+        "featured": false,
+        "Category": {
+            "nombre": "Hogar"
+        }
+    },
+    {
+        "id": 29,
+        "nombre": "Carpa Darwin 4 Personas",
+        "descripcion": "Tendrás la mejor experiencia de camping con la Carpa Darwin™ Coleman® para 4 personas. Con estructura de domo o con fijación de poste de anillo y pasador, tendrás mucho espacio para ti y tu familia.  Con su tecnología WeatherTec™ con resistencia para vientos de hasta 56 kph, tendrás comodidad y protección a la hora de disfrutar del aire libre y gracias a su sistema UV Guard™ Sun Protection 50+ FPS no tendrás que preocuparte por el sol.\r\n\r\nCon sus postes de fibra de vidrio estarás protegido contra los vientos más fuertes y las lluvias más prolongadas ya que cuenta con 1500mm de columnas de agua. ¡Olvidate de los insectos! Esta Carpa viene con malla incluida que los mantendrá lejos y así mejorar tu experiencia.\r\n\r\nFinalmente, esta Carpa está construida a base de materiales retardantes del fuego en caso de incendio, lo que te dará más tiempo de escapar en caso de emergencia. Con sus postes de fibra de vidrio estarás protegido contra los vientos más fuertes y las lluvias más prolongadas.",
+        "especificaciones": {
+            "Número de personas.": "4 personas",
+            "Material": "Poliester",
+            "Características": "Proteccion UV",
+            "Peso del producto": "4.8 KG"
+        },
+        "precio": "99990.00",
+        "cantidadEnStock": 25,
+        "categoriaId": 3,
+        "imagenes": [
+            "uploads\\1738178946734-615941256.jpg",
+            "uploads\\1738178946736-298227026.jpg",
+            "uploads\\1738178946739-925843625.jpg"
+        ],
+        "featured": false,
+        "Category": {
+            "nombre": "Deportes"
+        }
+    }
+]

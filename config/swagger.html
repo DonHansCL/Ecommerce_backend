@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentación de la API de Ecommerce</title>
+  <!-- Incluir el CSS de Swagger UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.css" integrity="sha512-v6mdlq96V+zf8Qzd7roWNnw1bQpuLSlt1K0qkNrkDNaeQSmRfPheNn+0FcsxWjRx+ZfNdtlbVt/IipracHDZmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="swagger-ui"></div>
+
+  <!-- Incluir los scripts de Swagger UI -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-bundle.js" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui-standalone-preset.js" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    window.onload = function() {
+      const ui = SwaggerUIBundle({
+        url: 'swagger.json', // Ruta al archivo swagger.json
+        dom_id: '#swagger-ui',
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: "BaseLayout",
+        deepLinking: true,
+        docExpansion: "none",
+        operationsSorter: "alpha"
+      });
+      window.ui = ui;
+    };
+  </script>
+</body>
+</html>

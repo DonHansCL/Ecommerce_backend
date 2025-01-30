@@ -1,0 +1,1298 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Ecommerce",
+    "version": "1.0.0",
+    "description": "Documentación de la API para la tienda Ecommerce"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Servidor de Desarrollo"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único del usuario",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del usuario",
+            "example": "Juan Pérez"
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electrónico del usuario",
+            "example": "juan.perez@example.com"
+          },
+          "rol": {
+            "type": "string",
+            "description": "Rol del usuario (ej. cliente, administrador)",
+            "example": "cliente"
+          },
+          "fechaRegistro": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de registro del usuario",
+            "example": "2023-10-01T12:34:56.789Z"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único de la categoría",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre de la categoría",
+            "example": "Electrónica"
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripción de la categoría",
+            "example": "Productos electrónicos y gadgets."
+          },
+          "imagen": {
+            "type": "string",
+            "description": "Nombre del archivo de imagen de la categoría",
+            "example": "electronics.jpg"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único del producto",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del producto",
+            "example": "Smartphone XYZ"
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripción del producto",
+            "example": "Smartphone de última generación con múltiples funcionalidades."
+          },
+          "precio": {
+            "type": "number",
+            "format": "float",
+            "description": "Precio del producto",
+            "example": 299.99
+          },
+          "cantidadEnStock": {
+            "type": "integer",
+            "description": "Cantidad disponible en stock",
+            "example": 50
+          },
+          "categoriaId": {
+            "type": "integer",
+            "description": "ID de la categoría a la que pertenece el producto",
+            "example": 1
+          },
+          "imagenes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Nombre de archivo de las imágenes del producto",
+              "example": "smartphone1.jpg"
+            }
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Indica si el producto es destacado",
+            "example": true
+          }
+        }
+      },
+      "OrderItem": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "description": "ID del pedido",
+            "example": 1
+          },
+          "productId": {
+            "type": "integer",
+            "description": "ID del producto",
+            "example": 1
+          },
+          "cantidad": {
+            "type": "integer",
+            "description": "Cantidad de productos en el pedido",
+            "example": 2
+          },
+          "precio": {
+            "type": "number",
+            "format": "float",
+            "description": "Precio del producto al momento del pedido",
+            "example": 299.99
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único del pedido",
+            "example": 1
+          },
+          "usuarioId": {
+            "type": "integer",
+            "description": "ID del usuario que realizó el pedido",
+            "example": 1
+          },
+          "total": {
+            "type": "number",
+            "format": "float",
+            "description": "Total del pedido",
+            "example": 599.98
+          },
+          "direccionEnvio": {
+            "type": "string",
+            "description": "Dirección de envío",
+            "example": "Calle Falsa 123, Ciudad, País"
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Método de pago utilizado",
+            "example": "tarjeta"
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado del pedido",
+            "example": "pendiente"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de creación del pedido",
+            "example": "2023-10-01T12:34:56.789Z"
+          }
+        }
+      },
+      "CartItem": {
+        "type": "object",
+        "properties": {
+          "carritoId": {
+            "type": "integer",
+            "description": "ID del carrito",
+            "example": 1
+          },
+          "productoId": {
+            "type": "integer",
+            "description": "ID del producto",
+            "example": 1
+          },
+          "cantidad": {
+            "type": "integer",
+            "description": "Cantidad de productos en el carrito",
+            "example": 2
+          }
+        }
+      },
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único del carrito",
+            "example": 1
+          },
+          "usuarioId": {
+            "type": "integer",
+            "description": "ID del usuario al que pertenece el carrito",
+            "example": 1
+          },
+          "CartItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartItem"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Iniciar sesión y obtener un token JWT",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "correo",
+                  "contraseña"
+                ],
+                "properties": {
+                  "correo": {
+                    "type": "string",
+                    "description": "Correo electrónico del usuario"
+                  },
+                  "contraseña": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token JWT generado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuario no encontrado o contraseña incorrecta"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "Obtener los datos del usuario autenticado",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/carts": {
+      "get": {
+        "summary": "Obtener el carrito del usuario",
+        "tags": [
+          "Carts"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles del carrito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cartItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "cantidad": {
+                            "type": "integer"
+                          },
+                          "product": {
+                            "$ref": "#/components/schemas/Product"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener el carrito"
+          }
+        }
+      }
+    },
+    "/carts/add": {
+      "post": {
+        "summary": "Agregar un producto al carrito",
+        "tags": [
+          "Carts"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "productoId",
+                  "cantidad"
+                ],
+                "properties": {
+                  "productoId": {
+                    "type": "integer",
+                    "description": "ID del producto a agregar"
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Cantidad del producto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto agregado al carrito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "cartItem": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "carritoId": {
+                          "type": "integer"
+                        },
+                        "productoId": {
+                          "type": "integer"
+                        },
+                        "cantidad": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Producto o cantidad inválida"
+          },
+          "500": {
+            "description": "Error al agregar al carrito"
+          }
+        }
+      }
+    },
+    "/carts/update": {
+      "put": {
+        "summary": "Actualizar la cantidad de un producto en el carrito",
+        "tags": [
+          "Carts"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "productoId",
+                  "cantidad"
+                ],
+                "properties": {
+                  "productoId": {
+                    "type": "integer",
+                    "description": "ID del producto a actualizar"
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "description": "Nueva cantidad del producto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cantidad actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "cartItem": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "cantidad": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Producto o cantidad inválida"
+          },
+          "404": {
+            "description": "Producto no encontrado en el carrito"
+          },
+          "500": {
+            "description": "Error al actualizar la cantidad"
+          }
+        }
+      }
+    },
+    "/carts/remove/{productoId}": {
+      "delete": {
+        "summary": "Eliminar un producto del carrito",
+        "tags": [
+          "Carts"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productoId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del producto a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Producto eliminado del carrito"
+          },
+          "404": {
+            "description": "Producto no encontrado en el carrito"
+          },
+          "500": {
+            "description": "Error al eliminar el producto"
+          }
+        }
+      }
+    },
+    "/carts/clear": {
+      "post": {
+        "summary": "Limpiar el carrito completo",
+        "tags": [
+          "Carts"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Carrito limpiado exitosamente"
+          },
+          "500": {
+            "description": "Error al limpiar el carrito"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Obtener todas las categorías",
+        "tags": [
+          "Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de categorías",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener las categorías"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva categoría (Solo Administradores)",
+        "tags": [
+          "Categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "nombre"
+                ],
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la categoría"
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Descripción de la categoría"
+                  },
+                  "imagen": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Imagen de la categoría"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Categoría creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "500": {
+            "description": "Error al crear la categoría"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "summary": "Actualizar una categoría existente (Solo Administradores)",
+        "tags": [
+          "Categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la categoría a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la categoría"
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Descripción de la categoría"
+                  },
+                  "imagen": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Nueva imagen de la categoría"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Categoría actualizada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "404": {
+            "description": "Categoría no encontrada"
+          },
+          "500": {
+            "description": "Error al actualizar la categoría"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una categoría existente (Solo Administradores)",
+        "tags": [
+          "Categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la categoría a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoría eliminada exitosamente"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "404": {
+            "description": "Categoría no encontrada"
+          },
+          "500": {
+            "description": "Error al eliminar la categoría"
+          }
+        }
+      }
+    },
+    "/orders/checkout": {
+      "post": {
+        "summary": "Realizar checkout y crear un pedido",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "direccionEnvio",
+                  "metodoPago"
+                ],
+                "properties": {
+                  "direccionEnvio": {
+                    "type": "string",
+                    "description": "Dirección de envío"
+                  },
+                  "metodoPago": {
+                    "type": "string",
+                    "description": "Método de pago (ej. tarjeta, paypal)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "order": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Carrito vacío o datos inválidos"
+          },
+          "500": {
+            "description": "Error al procesar el pedido"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "Obtener historial de pedidos",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "500": {
+            "description": "Error al obtener los pedidos"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Obtener todos los productos con opcional filtro por categoría o destacados",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "categoria",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nombre de la categoría para filtrar productos"
+          },
+          {
+            "in": "query",
+            "name": "featured",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filtrar productos destacados"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de productos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener los productos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo producto (Solo Administradores)",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "nombre",
+                  "precio",
+                  "cantidadEnStock",
+                  "categoriaId"
+                ],
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del producto"
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Descripción del producto"
+                  },
+                  "precio": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Precio del producto"
+                  },
+                  "cantidadEnStock": {
+                    "type": "integer",
+                    "description": "Cantidad en stock"
+                  },
+                  "categoriaId": {
+                    "type": "integer",
+                    "description": "ID de la categoría"
+                  },
+                  "imagenes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Imágenes del producto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Producto creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "500": {
+            "description": "Error al crear el producto"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Obtener detalles de un producto por ID",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del producto"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles del producto",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener el producto"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un producto existente (Solo Administradores)",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del producto a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del producto"
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "description": "Descripción del producto"
+                  },
+                  "precio": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Precio del producto"
+                  },
+                  "cantidadEnStock": {
+                    "type": "integer",
+                    "description": "Cantidad en stock"
+                  },
+                  "categoriaId": {
+                    "type": "integer",
+                    "description": "ID de la categoría"
+                  },
+                  "imagenes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Nuevas imágenes del producto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar el producto"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un producto (Solo Administradores)",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del producto a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Producto eliminado exitosamente"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          },
+          "500": {
+            "description": "Error al eliminar el producto"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Registrar un nuevo usuario",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "nombre",
+                  "correo",
+                  "contraseña"
+                ],
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                  },
+                  "correo": {
+                    "type": "string",
+                    "description": "Correo electrónico del usuario"
+                  },
+                  "contraseña": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente"
+          },
+          "400": {
+            "description": "Error de validación o correo ya en uso"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Obtener todos los usuarios (Solo Administradores)",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "500": {
+            "description": "Error al obtener los usuarios"
+          }
+        }
+      }
+    },
+    "/users/block/{id}": {
+      "put": {
+        "summary": "Bloquear/Desbloquear un usuario (Solo Administradores)",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del usuario a bloquear/desbloquear"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado del usuario actualizado"
+          },
+          "403": {
+            "description": "Acceso denegado"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar el usuario"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Operaciones de Autenticación"
+    },
+    {
+      "name": "Carts",
+      "description": "Operaciones relacionadas con Carritos"
+    },
+    {
+      "name": "Categories",
+      "description": "Operaciones relacionadas con Categorías"
+    },
+    {
+      "name": "Orders",
+      "description": "Operaciones relacionadas con Pedidos"
+    },
+    {
+      "name": "Products",
+      "description": "Operaciones relacionadas con Productos"
+    }
+  ]
+}
