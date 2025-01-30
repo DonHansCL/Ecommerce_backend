@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { sequelize, User, Product, Category, Cart, CartItem, Order } = require('./models');
+const { Sequelize } = require('sequelize');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const profileRoutes = require('./routes/profile');
@@ -20,9 +21,24 @@ app.use(express.json());
 
 // Configurar CORS
 app.use(cors({
-    origin: 'http://localhost:3000', // URL del frontend
-    credentials: true,
-  }));
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://ecommerce-frontend-4zal.onrender.com'
+    : 'http://localhost:3000',
+  credentials: true
+}));
+
+// Database configuration
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+  host: process.env.DB_HOST,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+  logging: false
+});
 
 // Servir archivos estáticos de la carpeta uploads
 app.use('/uploads', express.static(path.join(__dirname, process.env.UPLOADS_DIR)));
@@ -59,10 +75,13 @@ if (require.main === module) {
     })
     .then(() => {
       console.log('Modelos sincronizados');
-      app.listen(PORT, () => {
+      app.listen(PORT, '0.0.0.0', () => {
         console.log(`Servidor corriendo en el puerto ${PORT}`);
         console.log(`Documentación disponible en http://localhost:${PORT}/api-docs`);
       });
     })
-    .catch(err => console.error('Error de conexión:', err));
+    .catch(err => {
+      console.error('Error de conexión:', err);
+      process.exit(1);
+    });
 }
