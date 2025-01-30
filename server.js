@@ -28,7 +28,10 @@ app.use(cors({
 }));
 
 // Database configuration
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+const sequelize = new Sequelize({
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
   host: process.env.DB_HOST,
   dialect: 'postgres',
   dialectOptions: {
@@ -67,21 +70,26 @@ swaggerSetup(app);
 module.exports = app;
 
 // Conectar a la base de datos y sincronizar modelos
-if (require.main === module) {
-  sequelize.authenticate()
-    .then(() => {
-      console.log('Conectado a la base de datos');
-      return sequelize.sync({ alter: true });
-    })
-    .then(() => {
-      console.log('Modelos sincronizados');
-      app.listen(PORT, '0.0.0.0', () => {
-        console.log(`Servidor corriendo en el puerto ${PORT}`);
-        console.log(`Documentación disponible en http://localhost:${PORT}/api-docs`);
-      });
-    })
-    .catch(err => {
-      console.error('Error de conexión:', err);
-      process.exit(1);
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connected successfully');
+    
+    await sequelize.sync({ alter: true });
+    console.log('Database models synchronized');
+    
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`API documentation available at http://localhost:${PORT}/api-docs`);
     });
+  } catch (error) {
+    console.error('Unable to start server:', error);
+    process.exit(1);
+  }
+};
+
+if (require.main === module) {
+  startServer();
 }
+
+module.exports = app;
