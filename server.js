@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-// const { sequelize, User, Product, Category, Cart, CartItem, Order } = require('./models');
-const { Sequelize } = require('sequelize');
+const { sequelize, User, Product, Category, Cart, CartItem, Order } = require('./models');
+// const { Sequelize } = require('sequelize');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const profileRoutes = require('./routes/profile');
@@ -27,17 +27,17 @@ app.use(cors({
   credentials: true
 }));
 
-// Database configuration
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  },
-  logging: false
-});
+// // Database configuration
+// const sequelize = new Sequelize(process.env.DATABASE_URL, {
+//   dialect: 'postgres',
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false
+//     }
+//   },
+//   logging: false
+// });
 
 // Servir archivos estáticos de la carpeta uploads
 app.use('/uploads', express.static(path.join(__dirname, process.env.UPLOADS_DIR)));
@@ -76,7 +76,6 @@ const startServer = async () => {
     
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
-      console.log(`API documentation available at http://localhost:${PORT}/api-docs`);
     });
   } catch (error) {
     console.error('Unable to start server:', error);

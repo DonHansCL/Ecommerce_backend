@@ -13,11 +13,14 @@
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
-  "production": {
-    "username": "postgres",
-    "password": "Cha1047",
-    "database": "ecommerce",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+ "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }

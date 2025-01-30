@@ -1,4 +1,3 @@
-// backend/models/index.js
 'use strict';
 
 const fs = require('fs');
@@ -13,16 +12,19 @@ const db = {};
 let sequelize;
 
 // Habilitar el logging de Sequelize
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], { 
-    ...config,
-    logging: console.log, // Habilita el logging
+if (env === 'production') {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
+    logging: false
   });
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, { 
-    ...config,
-    logging: console.log, // Habilita el logging
-  });
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
