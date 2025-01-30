@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const { sequelize, User, Product, Category, Cart, CartItem, Order } = require('./models');
+// const { sequelize, User, Product, Category, Cart, CartItem, Order } = require('./models');
 const { Sequelize } = require('sequelize');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
@@ -12,7 +12,7 @@ const orderRoutes = require('./routes/orders');
 const categoryRoutes = require('./routes/categories');
 const cors = require('cors'); 
 const swaggerSetup = require('./config/swagger');
-const errorHandler = require('./middlewares/errorHandler');
+// const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -28,11 +28,7 @@ app.use(cors({
 }));
 
 // Database configuration
-const sequelize = new Sequelize({
-  database: process.env.DB_NAME,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
@@ -91,5 +87,3 @@ const startServer = async () => {
 if (require.main === module) {
   startServer();
 }
-
-module.exports = app;
